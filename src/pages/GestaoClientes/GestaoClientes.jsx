@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import usePageTitle from '../../hooks/usePageTitle';
-import '../Home/Home.css';
-import './ClientManagement.css';
+import '../Cesta/Cesta.css';
+import './GestaoClientes.css';
 import {
     UserCheck, Clock, CheckCircle, Search, UserX,
-    Fingerprint, Mail, Wallet, UserMinus, DollarSign
+    Fingerprint, Mail, Wallet, UserMinus, DollarSign, Briefcase
 } from 'lucide-react';
 import Modal from '../../components/Modal/Modal';
 
-const ClientManagement = () => {
+const GestaoClientes = () => {
     usePageTitle('Gestão de Clientes');
     const [pendingClients, setPendingClients] = useState([]);
     const [approvedClients, setApprovedClients] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [totalAUM, setTotalAUM] = useState(0);
 
     // Filters & Pagination for Pending
     const [searchTerm, setSearchTerm] = useState('');
@@ -92,6 +93,17 @@ const ClientManagement = () => {
             } catch (aErr) {
                 console.error("ERRO na API de Ativos:", aErr.message);
             }
+
+            // 3. Fetch AUM
+            try {
+                const resAum = await axios.get('http://localhost:5246/api/v1/admin/aum', config);
+                if (resAum.data && resAum.data.status === 200) {
+                    setTotalAUM(resAum.data.data.totalAum || 0);
+                }
+            } catch (aumError) {
+                console.error("Erro ao carregar AUM:", aumError);
+            }
+
             setError(null);
         } catch (err) {
             console.error("Erro crítico:", err);
@@ -303,13 +315,13 @@ const ClientManagement = () => {
                         </div>
 
                         <div className="stat-card">
-                            <div className="stat-icon green">
-                                <DollarSign size={24} />
+                            <div className="stat-icon blue">
+                                <Briefcase size={24} />
                             </div>
                             <div className="stat-content">
-                                <span>Fluxo</span>
-                                <h3>Volume Médio</h3>
-                                <p>Adesões por período</p>
+                                <span>AUM Total (Clientes)</span>
+                                <h3>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(totalAUM || 0)}</h3>
+                                <p>Patrimônio sob gestão</p>
                             </div>
                         </div>
                     </div>
@@ -412,4 +424,4 @@ const ClientManagement = () => {
     );
 };
 
-export default ClientManagement;
+export default GestaoClientes;

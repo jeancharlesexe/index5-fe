@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
-import { LayoutDashboard, ShoppingCart, History, FileText, Settings, Menu, UserCheck } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, History, FileText, Settings, Menu, UserCheck, DollarSign } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import logoItau from '../../assets/icons/logo-itau.png';
 
@@ -29,15 +29,15 @@ const Sidebar = () => {
             <nav className="sidebar-nav">
                 <ul className="nav-list">
                     <li>
-                        <NavLink to="/admin/dashboard" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} title="Dashboard">
+                        <NavLink to="/admin/dashboard-master" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} title="Dashboard Master">
                             <LayoutDashboard size={20} />
-                            {!isCollapsed && <span>Dashboard</span>}
+                            {!isCollapsed && <span>Dashboard Master</span>}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/admin/basket" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'} title="Cesta Top Five">
                             <ShoppingCart size={20} />
-                            {!isCollapsed && <span>Cesta Top Five</span>}
+                            {!isCollapsed && <span>Configurar Cesta</span>}
                         </NavLink>
                     </li>
                     <li>
@@ -69,18 +69,18 @@ const Sidebar = () => {
 
             <div className="sidebar-footer">
                 {!isCollapsed ? (
-                    <div className="motor-info">
-                        <p>Motor de Compra</p>
-                        <span>Próxima Compra: 05/03/2026</span>
-                        <div className="progress-bar">
-                            <div className="progress-fill"></div>
+                    <div className="motor-info schedule-box">
+                        <p>Ciclo Mensal de Aporte</p>
+                        <div className="schedule-days">
+                            <div className="day-pill">05</div>
+                            <div className="day-pill">15</div>
+                            <div className="day-pill">25</div>
                         </div>
+                        <span className="schedule-hint">Distribuição 1/3 por data base</span>
                     </div>
                 ) : (
-                    <div className="motor-info collapsed-motor" title="Próxima Compra: 05/03/2026">
-                        <div className="progress-bar">
-                            <div className="progress-fill"></div>
-                        </div>
+                    <div className="motor-info collapsed-motor" title="Aportes: Dias 05, 15 e 25">
+                        <DollarSign size={18} color="#ec7000" />
                     </div>
                 )}
             </div>

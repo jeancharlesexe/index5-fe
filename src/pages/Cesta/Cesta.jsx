@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import usePageTitle from '../../hooks/usePageTitle';
-import './Home.css';
+import './Cesta.css';
 import {
     LayoutDashboard, PlusCircle, ArrowRightCircle, Save, XCircle,
     TrendingUp, History, Info, AlertTriangle, CheckCircle2, Search, Trash2
@@ -9,7 +9,7 @@ import {
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
 
-const Home = () => {
+const Cesta = () => {
     usePageTitle('Cesta Top Five');
 
     // States
@@ -258,7 +258,7 @@ const Home = () => {
                         </div>
                     ) : (
                         <>
-                            <div className="basket-overview-grid">
+                            <div className="basket-overview-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
                                 <div className="stat-card main-stat">
                                     <div className="stat-icon"><History size={24} /></div>
                                     <div className="stat-content">
@@ -269,13 +269,7 @@ const Home = () => {
                                     <div className="active-tag">Ativa</div>
                                 </div>
 
-                                <div className="stat-card">
-                                    <div className="stat-icon blue"><TrendingUp size={24} /></div>
-                                    <div className="stat-content">
-                                        <span>Volatilidade</span>
-                                        <h3>Médio / Baixo</h3>
-                                    </div>
-                                </div>
+
 
                                 <div className="stat-card">
                                     <div className="stat-icon green"><CheckCircle2 size={24} /></div>
@@ -309,9 +303,7 @@ const Home = () => {
                                                     <span>Financeiro / Mercado</span>
                                                 </div>
                                             </div>
-                                            <div className="asset-footer">
-                                                <span className={`performance positive`}>+3.4% hoje</span>
-                                            </div>
+
                                         </div>
                                     ))}
                                 </div>
@@ -445,4 +437,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Cesta;

@@ -1,6 +1,6 @@
 import React from 'react';
 import usePageTitle from '../../hooks/usePageTitle';
-import '../Home/Home.css';
+import '../Cesta/Cesta.css';
 
 const Configuracoes = () => {
     usePageTitle('Configurações');

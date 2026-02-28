@@ -123,18 +123,28 @@
     color: #a0aec0;
 }
 
-.progress-bar {
-    background-color: rgba(255, 255, 255, 0.2);
-    height: 6px;
-    border-radius: 4px;
-    margin-top: 12px;
-    overflow: hidden;
+.schedule-days {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 8px 0;
 }
 
-.progress-fill {
-    background-color: #ec7000;
-    height: 100%;
-    width: 70%;
+.day-pill {
+    background-color: rgba(236, 112, 0, 0.15);
+    color: #ec7000;
+    border: 1px solid rgba(236, 112, 0, 0.3);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+}
+
+.schedule-hint {
+    display: block;
+    font-size: 0.7rem !important;
+    opacity: 0.8;
 }
 
 .sidebar.collapsed .sidebar-footer {
