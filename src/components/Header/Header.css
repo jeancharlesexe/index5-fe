@@ -9,23 +9,34 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.header-titles h1 {
+.premium-header-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.premium-header-titles h1 {
     margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #032e5e;
+    letter-spacing: -0.2px;
 }
 
-.header-titles h2 {
-    margin: 2px 0;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #444;
+.premium-header-titles .title-separator {
+    color: #ec7000;
+    margin: 0 6px;
+    font-weight: bold;
 }
 
-.header-titles span {
-    font-size: 0.75rem;
+.greeting-text {
+    font-size: 0.8rem;
     color: #666;
+    letter-spacing: 0.3px;
+}
+
+.greeting-text strong {
+    color: #333;
 }
 
 .header-actions {
@@ -38,16 +49,24 @@
     position: relative;
     cursor: pointer;
     color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
 }
 
 .notification-icon:hover {
-    color: #333;
+    color: #032e5e;
+    background-color: #f1f3f5;
 }
 
 .badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
+    top: 0px;
+    right: 0px;
     background-color: #ec7000;
     color: white;
     font-size: 0.65rem;
@@ -59,6 +78,7 @@
     align-items: center;
     border-radius: 50%;
     border: 2px solid white;
+    transform: translate(25%, -25%);
 }
 
 .user-profile-container {

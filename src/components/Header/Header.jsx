@@ -51,10 +51,9 @@ const Header = () => {
     };
     return (
         <header className="admin-header">
-            <div className="header-titles">
-                <h1>Sistema de Compra Programada de Ações (Top Five)</h1>
-                <h2>Painel Administrativo</h2>
-                <span>Seja bem-vindo(a)</span>
+            <div className="header-titles premium-header-titles">
+                <span className="greeting-text">Olá, <strong>{userName}</strong>! Bem-vindo(a) de volta.</span>
+                <h1>Painel de Administração <span className="title-separator">•</span> Motor Top Five</h1>
             </div>
 
             <div className="header-actions">
