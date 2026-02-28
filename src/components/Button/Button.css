@@ -1,0 +1,61 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--surface);
+    box-shadow: 0 4px 6px rgba(236, 112, 0, 0.2);
+}
+
+.btn-primary:not(:disabled):hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 12px rgba(236, 112, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-primary:not(:disabled):active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(236, 112, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+}
+
+.btn-secondary:not(:disabled):hover {
+    background-color: var(--secondary);
+    color: var(--surface);
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--primary);
+    padding: 8px;
+}
+
+.btn-text:hover {
+    text-decoration: underline;
+}
+
+/* Micro-interaction ripple effect could be added here */
