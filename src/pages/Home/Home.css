@@ -499,3 +499,31 @@
     color: #666;
     font-size: 1.1rem;
 }
+
+/* Empty State */
+.premium-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px dashed #e1e4e8;
+    margin-top: 20px;
+    grid-column: 1 / -1;
+}
+
+.premium-empty h2 {
+    margin: 20px 0 10px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.premium-empty p {
+    color: #666;
+    margin-bottom: 24px;
+    max-width: 500px;
+}

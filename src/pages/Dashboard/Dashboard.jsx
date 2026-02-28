@@ -34,12 +34,21 @@ const Dashboard = () => {
                     custodyItems = data.custody || [];
                     residue = data.totalResidueValue || 0;
 
-                    const custodySum = custodyItems.reduce((acc, item) => acc + (item.currentValue * item.quantity), 0);
-                    calculatedAUM = residue + custodySum;
-
                     setCustodyData(custodyItems);
                     setTotalResidue(residue);
-                    setTotalAUM(calculatedAUM);
+                }
+
+                // Fetch AUM Consolidado Total (Filhotes + Master)
+                try {
+                    const resAum = await axios.get('http://localhost:5246/api/v1/admin/aum', config);
+                    if (resAum.data && resAum.data.status === 200) {
+                        calculatedAUM = resAum.data.data.totalAum || 0;
+                        setTotalAUM(calculatedAUM);
+                    }
+                } catch (aumError) {
+                    console.error("Erro ao carregar AUM:", aumError);
+                    // Fallback to purely residue on api failure
+                    setTotalAUM(residue);
                 }
 
                 // 2. Fetch Active Clients

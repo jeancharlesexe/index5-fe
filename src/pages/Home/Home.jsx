@@ -50,25 +50,13 @@ const Home = () => {
             }
         } catch (error) {
             console.error("Erro ao buscar cesta atual:", error);
-            // Local fallback for UI design
-            const fallbackData = {
-                basketId: 1,
-                name: "Carteira Itaú Top 5 - 2026",
-                active: true,
-                createdAt: new Date().toISOString(),
-                items: [
-                    { ticker: "ITUB4", percentage: 20.00, currentQuote: 47.67 },
-                    { ticker: "VALE3", percentage: 20.00, currentQuote: 89.21 },
-                    { ticker: "PETR4", percentage: 20.00, currentQuote: 39.61 },
-                    { ticker: "BBDC4", percentage: 20.00, currentQuote: 20.98 },
-                    { ticker: "ABEV3", percentage: 20.00, currentQuote: 16.41 }
-                ]
-            };
-            setBasketData(fallbackData);
-            setNewBasketItems(fallbackData.items.map(i => ({
-                ticker: i.ticker,
-                percentage: i.percentage
-            })));
+            if (error.response && error.response.status === 404) {
+                setBasketData(null);
+                setNewBasketItems([]);
+            } else {
+                setBasketData(null);
+                setNewBasketItems([]);
+            }
         } finally {
             setIsLoading(false);
         }
@@ -219,7 +207,7 @@ const Home = () => {
         }
     };
 
-    if (isLoading && !basketData) {
+    if (isLoading) {
         return (
             <div className="home-container">
                 <div className="loading-message">Carregando dados da carteira...</div>
@@ -258,64 +246,78 @@ const Home = () => {
             {!isEditMode ? (
                 /* VIEW MODE: Dashboard */
                 <>
-                    <div className="basket-overview-grid">
-                        <div className="stat-card main-stat">
-                            <div className="stat-icon"><History size={24} /></div>
-                            <div className="stat-content">
-                                <span>Cesta Ativa</span>
-                                <h3>{basketData?.name}</h3>
-                                <p>Criada em {formatDate(basketData?.createdAt)}</p>
-                            </div>
-                            <div className="active-tag">Ativa</div>
+                    {!basketData ? (
+                        <div className="empty-state premium-empty">
+                            <AlertTriangle size={48} color="#ec7000" />
+                            <h2>Nenhuma Cesta Ativa Encontrada</h2>
+                            <p>Não há nenhuma configuração de Cesta Top Five ativa no momento. Clique no botão abaixo para criar a primeira.</p>
+                            <Button className="btn-save mt-4" onClick={toggleEdit}>
+                                <PlusCircle size={18} />
+                                Configurar Cesta
+                            </Button>
                         </div>
-
-                        <div className="stat-card">
-                            <div className="stat-icon blue"><TrendingUp size={24} /></div>
-                            <div className="stat-content">
-                                <span>Volatilidade</span>
-                                <h3>Médio / Baixo</h3>
-                            </div>
-                        </div>
-
-                        <div className="stat-card">
-                            <div className="stat-icon green"><CheckCircle2 size={24} /></div>
-                            <div className="stat-content">
-                                <span>Status Algoritmo</span>
-                                <h3>Operacional</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="assets-section">
-                        <div className="section-title-wrap">
-                            <h2>Ativos que Compõem a Cesta</h2>
-                            <span>Distribuição de 20% por ativo (Itaú Top 5 Rule)</span>
-                        </div>
-
-                        <div className="assets-grid">
-                            {basketData?.items.map((asset, index) => (
-                                <div key={index} className="asset-card">
-                                    <div className="asset-header">
-                                        <div className="asset-ticker">{asset.ticker}</div>
-                                        <div className="asset-percent">{asset.percentage}%</div>
+                    ) : (
+                        <>
+                            <div className="basket-overview-grid">
+                                <div className="stat-card main-stat">
+                                    <div className="stat-icon"><History size={24} /></div>
+                                    <div className="stat-content">
+                                        <span>Cesta Ativa</span>
+                                        <h3>{basketData?.name}</h3>
+                                        <p>Criada em {formatDate(basketData?.createdAt)}</p>
                                     </div>
-                                    <div className="asset-details">
-                                        <div className="detail-row">
-                                            <span>Preço Atual</span>
-                                            <strong>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(asset.currentQuote)}</strong>
-                                        </div>
-                                        <div className="detail-row">
-                                            <span>Setor</span>
-                                            <span>Financeiro / Mercado</span>
-                                        </div>
-                                    </div>
-                                    <div className="asset-footer">
-                                        <span className={`performance positive`}>+3.4% hoje</span>
+                                    <div className="active-tag">Ativa</div>
+                                </div>
+
+                                <div className="stat-card">
+                                    <div className="stat-icon blue"><TrendingUp size={24} /></div>
+                                    <div className="stat-content">
+                                        <span>Volatilidade</span>
+                                        <h3>Médio / Baixo</h3>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
+
+                                <div className="stat-card">
+                                    <div className="stat-icon green"><CheckCircle2 size={24} /></div>
+                                    <div className="stat-content">
+                                        <span>Status Algoritmo</span>
+                                        <h3>Operacional</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="assets-section">
+                                <div className="section-title-wrap">
+                                    <h2>Ativos que Compõem a Cesta</h2>
+                                    <span>Distribuição de 20% por ativo (Itaú Top 5 Rule)</span>
+                                </div>
+
+                                <div className="assets-grid">
+                                    {basketData?.items.map((asset, index) => (
+                                        <div key={index} className="asset-card">
+                                            <div className="asset-header">
+                                                <div className="asset-ticker">{asset.ticker}</div>
+                                                <div className="asset-percent">{asset.percentage}%</div>
+                                            </div>
+                                            <div className="asset-details">
+                                                <div className="detail-row">
+                                                    <span>Preço Atual</span>
+                                                    <strong>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(asset.currentQuote)}</strong>
+                                                </div>
+                                                <div className="detail-row">
+                                                    <span>Setor</span>
+                                                    <span>Financeiro / Mercado</span>
+                                                </div>
+                                            </div>
+                                            <div className="asset-footer">
+                                                <span className={`performance positive`}>+3.4% hoje</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </>
             ) : (
                 /* EDIT MODE: Asset Selector */
