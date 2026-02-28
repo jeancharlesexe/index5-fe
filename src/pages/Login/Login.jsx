@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
+import usePageTitle from '../../hooks/usePageTitle';
 import './Login.css';
 
 const Login = () => {
+    usePageTitle('Login');
+    const navigate = useNavigate();
     const [credentials, setCredentials] = useState({ user: '', password: '' });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
@@ -38,8 +42,7 @@ const Login = () => {
                 localStorage.setItem('@ItauAdmin:token', token);
                 localStorage.setItem('@ItauAdmin:user', JSON.stringify(response.data.data));
 
-                // Temporário: Apenas avisa sucesso. Em um App real, faríamos router.push('/dashboard')
-                alert('Acesso Concedido! Bem-vindo(a) ' + response.data.data.name);
+                navigate('/admin');
             } else {
                 setError(response.data.message || 'Erro ao realizar login.');
             }

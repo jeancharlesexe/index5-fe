@@ -1,0 +1,154 @@
+.sidebar {
+    width: 250px;
+    background-color: #032e5e;
+    /* Itau dark blue */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top-left-radius: 32px;
+    transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar-logo {
+    background-color: #ec7000;
+    padding: 24px 20px 16px 20px;
+}
+
+.logo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.logo-itau {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-itau img {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+}
+
+.logo-itau span {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: white;
+}
+
+.menu-icon {
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.admin-badge {
+    color: white;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-nav {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    cursor: pointer;
+    gap: 12px;
+    transition: background-color 0.2s, padding 0.3s ease;
+    color: #c9d1d9;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .nav-item {
+    padding: 16px;
+    justify-content: center;
+}
+
+.nav-item:hover {
+    background-color: #0a1c3e;
+}
+
+.nav-item.active {
+    background-color: #0a1c3e;
+    border-left: 4px solid #ec7000;
+    padding-left: 20px;
+    color: white;
+    font-weight: 500;
+}
+
+.sidebar.collapsed .nav-item.active {
+    padding-left: 12px;
+}
+
+.sidebar-footer {
+    padding: 24px;
+}
+
+.motor-info {
+    background-color: #0a1c3e;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.motor-info p {
+    margin: 0 0 4px 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.motor-info span {
+    font-size: 0.75rem;
+    color: #a0aec0;
+}
+
+.progress-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 6px;
+    border-radius: 4px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background-color: #ec7000;
+    height: 100%;
+    width: 70%;
+}
+
+.sidebar.collapsed .sidebar-footer {
+    padding: 24px 16px;
+}
+
+.sidebar.collapsed .collapsed-motor {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar.collapsed .progress-bar {
+    margin-top: 0;
+    width: 100%;
+}
