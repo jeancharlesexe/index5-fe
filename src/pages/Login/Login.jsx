@@ -6,6 +6,7 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import usePageTitle from '../../hooks/usePageTitle';
 import { translateError } from '../../utils/errorHelper';
+import LogoItau from '../../assets/icons/logo-itau.png';
 import './Login.css';
 
 const Login = () => {
@@ -37,9 +38,15 @@ const Login = () => {
             });
 
             if (response.data && response.data.status === 200) {
-                // Armazenar dados no localStorage ou Context API
+                // Extraindo as propriedades root diretamente de response.data.data 
+                // visto que o backend C# retorna "token", "userId", "name" e "role" no mesmo nível
+                const { token, userId, name, role } = response.data.data;
+
+                // Monta o objeto que o ProtectedRoute espera
+                const userObject = { id: userId, name, role };
+
                 localStorage.setItem('@ItauAdmin:token', token);
-                localStorage.setItem('@ItauAdmin:user', JSON.stringify(response.data.data));
+                localStorage.setItem('@ItauAdmin:user', JSON.stringify(userObject));
                 navigate('/admin');
             } else {
                 const errorCode = response.data?.data?.code || response.data?.message;
@@ -64,7 +71,7 @@ const Login = () => {
             <div className="login-banner">
                 <div className="banner-content">
                     <div className="brand-header">
-                        <div className="brand-logo">Itaú</div>
+                        <img src={LogoItau} alt="Logo Itaú" className="brand-logo-img" style={{ maxWidth: '80px', marginBottom: '8px' }} />
                         <p className="brand-subtitle">Administrativo</p>
                     </div>
                     <div className="banner-illustration">
