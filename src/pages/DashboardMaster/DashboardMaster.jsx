@@ -30,7 +30,7 @@ const DashboardMaster = () => {
             }
 
             try {
-                const resAum = await axios.get('http://localhost:5246/api/v1/admin/master-account/aum', config);
+                const resAum = await axios.get('http://localhost:5246/api/v1/admin/aum', config);
                 if (resAum.data && resAum.data.status === 200) {
                     setTotalAum(resAum.data.data.totalAum || 0);
                 }
