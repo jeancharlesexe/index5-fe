@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import Modal from '../../components/Modal/Modal';
 import Button from '../../components/Button/Button';
+import { translateError } from '../../utils/errorHelper';
 
 const Cesta = () => {
     usePageTitle('Cesta Top Five');
@@ -201,7 +202,10 @@ const Cesta = () => {
             });
         } catch (error) {
             console.error("Erro ao salvar nova cesta:", error);
-            alert('Erro ao processar alteração da cesta. Verifique se o backend está ativo.');
+            const msg = error.response?.data?.code
+                ? translateError(error.response.data.code, error.response.data.message)
+                : 'Erro ao processar alteração da cesta. Verifique se o backend está ativo.';
+            alert(msg);
         } finally {
             setIsSaving(false);
         }

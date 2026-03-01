@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import usePageTitle from '../../hooks/usePageTitle';
+import { translateError } from '../../utils/errorHelper';
 import './Login.css';
 
 const Login = () => {
@@ -36,22 +37,21 @@ const Login = () => {
             });
 
             if (response.data && response.data.status === 200) {
-                const { token, role } = response.data.data;
-
                 // Armazenar dados no localStorage ou Context API
                 localStorage.setItem('@ItauAdmin:token', token);
                 localStorage.setItem('@ItauAdmin:user', JSON.stringify(response.data.data));
-
                 navigate('/admin');
             } else {
-                setError(response.data.message || 'Erro ao realizar login.');
+                const errorCode = response.data?.data?.code || response.data?.message;
+                setError(translateError(errorCode, response.data?.message));
             }
         } catch (err) {
-            // Tratar erros HTTP, como 401 (Não Autorizado) ou servidor fora do ar
-            if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message);
+            if (err.response && err.response.data) {
+                const res = err.response.data;
+                const errorCode = res.data?.code || res.message;
+                setError(translateError(errorCode, res.message));
             } else {
-                setError('Erro de conexão do servidor. Tente novamente mais tarde.');
+                setError(translateError('NETWORK_ERROR', 'Erro de conexão com o servidor.'));
             }
         } finally {
             setIsLoading(false);
